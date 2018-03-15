@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery WeUI</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../app/lib/weui.min.css">
+    <link rel="stylesheet" href="../app/css/jquery-weui.css">
+    <link rel="stylesheet" href="../app/css/demos.css">
+    <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" src="../js/immersed.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+</head>
+
+<body ontouchstart>
+<header style="	width: 100%;height: 60px;background: #333333">
+    <div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+    <div class="nvtt" style="margin-top: 20px">消息详情</div>
+</header>
+<div class="weui-btn-area" style="height: 30px">
+    <p style="background-color: #ffffff">&nbsp;</p>
+</div>
+<h3 id="title" style="text-align: center"></h3>
+<div class="page__bd">
+    <div class="weui-panel weui-panel_access">
+        <div id="content" class="weui-panel__hd"></div>
+        <div class="weui-panel__bd">
+        </div>
+    </div>
+</div>
+<script src="../app/lib/jquery-2.1.4.js"></script>
+<script src="../app/lib/fastclick.js"></script>
+<script src="../js/mui.min.js"></script>
+<script>
+    mui.plusReady(function () {
+        var self = plus.webview.currentWebview();
+        var nameid = self.data;
+        var options = {
+            url: 'http://pay.goliebao.com/app/public/index/index/noticeid.html',
+            type: 'post',
+            dataType: 'text',
+            data: {id: nameid},
+            success: function (data) {
+                var datas = eval('(' + data + ')');
+                $("#title").text(datas[0].title);
+                $("#content").text(datas[0].content);
+            },
+            error: function () {
+                alert("信息获取失败");
+            }
+        };
+        $.ajax(options);
+    });
+</script>
+<script src="../app/js/jquery-weui.js"></script>
+</body>
+</html>

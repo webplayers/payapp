@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<script type="text/javascript" src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	</head>
+
+	<body ontouchstart>
+		<header id="header" style="height: 60px">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">收款二维码</div>
+		</header>
+		<div class="weui-btn-area" style="height: 30px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+		<div style="text-align: center;margin-top: 10%;" id="pullrefresh" class="mui-content">
+			<img id="payimg" style="width: 80%;height: 80%;margin-top: 10%;" src="" />
+			<a id="payimgs" href="" download="收款码" class="weui-btn weui-btn_primary" style="background-color: #ff9900">下载收款码</a>
+		</div>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script>
+			var storage = window.localStorage;
+			var payimg = storage["username"];
+			$("#payimg").attr("src", "http://pay.goliebao.com/pay/payimg/"+payimg+".png");
+			$("#payimgs").attr("href", "http://pay.goliebao.com/pay/payimg/"+payimg+".png");
+		</script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../app/js/jquery-weui.js"></script>
+	</body>
+
+</html>

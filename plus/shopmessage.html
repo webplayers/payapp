@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<script type="text/javascript" src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	</head>
+
+	<body ontouchstart>
+		<header id="header" style="height: 60px">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">门店信息</div>
+		</header>
+		<div class="weui-btn-area" style="height: 30px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+		<div id="titletread">
+		</div>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../app/js/jquery-weui.js"></script>
+		<script>
+			var storage = window.localStorage;
+			var shopname = storage["username"];
+			var options = {
+				url: 'http://pay.goliebao.com/app/public/index/index/shopmessage.html',
+				type: 'post',
+				dataType: 'text',
+				data: {
+					shopname: shopname
+				},
+				success: function(data) {
+					var data = eval('(' + data + ')');
+					var div1 = '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>商户号</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.mct_no;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>审核状态</p>';
+					div1 += '</div>';
+					div1 += '<div style="color:green" class="weui-cell__ft">';
+					div1 += data.state;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>商户名称</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.mct_name;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>地址</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.cityid + data.address;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>联系方式</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.tel;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>法人姓名</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.boss_name;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>开户行</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.bank_name;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>开户名称</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.account_name;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+
+					div1 += '<div class="weui-cells">';
+					div1 += '<div class="weui-cell">';
+					div1 += '<div class="weui-cell__bd">';
+					div1 += '<p>开户账号</p>';
+					div1 += '</div>';
+					div1 += '<div class="weui-cell__ft">';
+					div1 += data.account_no;
+					div1 += '</div>';
+					div1 += '</div>';
+					div1 += '</div>';
+					$("#titletread").append(div1);
+				},
+				error: function() {
+					alert("网络错误");
+				}
+			};
+			$.ajax(options);
+		</script>
+	</body>
+
+</html>

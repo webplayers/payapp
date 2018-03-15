@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<script type="text/javascript" src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	</head>
+
+	<body ontouchstart>
+		<header id="header" style="height: 60px">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">关于我们</div>
+		</header>
+		<div class="weui-btn-area" style="height: 40px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+		<h1>猎豹易Pay</h1>
+		<h3 style="color: #FF9900;">软件信息</h3>
+		<p>猎豹易Pay商户收款客户端</p>
+		<p id="banben"></p>
+		<br><br><br>
+		<h3 style="color: #FF9900;">猎豹易Pay商户服务协议</h3>
+		<p>猎豹易Pay智富圈收款服务协议</p>
+		<p>猎豹易Pay智富圈业务合作协议</p>
+		<p>猎豹易Pay扫码收款服务协议</p>
+		<div style="text-align: center;margin-top: 90%;">
+			<p>Copyright 2017 liebaoyi.com</p>
+			<p>All Rights Reserved</p>
+		</div>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../app/js/jquery-weui.js"></script>
+		<script src="../app/js/home.js"></script>
+		<script>
+         mui.init();
+         mui.plusReady(function(){
+            plus.runtime.getProperty(plus.runtime.appid,function(inf){ 
+                     document.getElementById("banben").innerHTML = "版本号："+inf.version;  
+
+                });  
+         });
+		</script>
+	</body>
+
+</html>

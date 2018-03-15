@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<!--<meta name="MobileOptimized" content="320"/>-->
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css">
+			#total {
+				-webkit-user-select: text;
+				text-align: right;
+				padding: 0 1em;
+				border: 0px;
+				border-bottom: 1px solid #ECB100;
+				border-radius: 0;
+				font-size: 16px;
+				width: 30%;
+				outline: none;
+			}
+		</style>
+		<script type="text/javascript">
+			var storage = window.localStorage;
+			var shopname = storage["username"];
+
+			var img = null;
+			var blist = [];
+
+			function scaned(t, r, f) {
+				var a = document.getElementById("total").value;
+				var urls = "http://pay.goliebao.com/app/public/index/index/scan?code=" + r + "&money=" + a + "&shopname=" + shopname;
+				$.get(urls, function(result) {
+					if(result == "1") {
+						plus.nativeUI.alert("支付成功");
+					} else {
+						plus.nativeUI.alert("支付失败");
+					}
+				});
+			}
+		</script>
+	</head>
+
+	<body>
+		<header style="	width: 100%;height: 60px;">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">支付</div>
+		</header>
+		</br>
+		<div id="dcontent" class="dcontent">
+			<p style="padding: 0 1em;text-align:left;">请输入付款金额</p>
+			<br/>
+			<div style="padding: 0 1em;text-align:left">
+				￥<input id="total" type="tel" value="0.00" />元
+			</div>
+			<br/>
+			<div style="background-color: #ff9900;" class="button" onclick="sublits()">扫码</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/immersed.js"></script>
+	<script>
+		var precapital;
+		document.querySelector('#total').addEventListener('focus', function() {
+			if(this.value == '0.00') {
+				this.value = '';
+			} else {
+				this.value = this.value.replace(/\.00/, '').replace(/(\.\d)0/, '$1');
+			}
+			precapital = this.value;
+		});
+		document.querySelector('#total').addEventListener('keyup', function() {
+
+			this.value = this.value.replace(/^[\.]/, '').replace(/[^\d.]/g, '');
+			if(this.value.split(".").length - 1 > 1) {
+				this.value = precapital;
+			}
+			precapital = this.value;
+			var to = document.getElementById("total").value;
+		});
+		document.querySelector('#total').addEventListener('blur', function() {
+			this.value = this.value.replace(/[\.]$/, '');
+			this.value = this.value.replace(/(.*)\.([\d]{2})(\d*)/g, '$1.$2');
+			this.value = Number(this.value).toFixed(2);
+			var logNum = this.value.toString();
+		});
+		
+		function sublits(){
+			var tota = document.getElementById("total").value;
+			if(tota>0){
+				clicked('barcode_scan.html');
+			}else{
+				plus.nativeUI.alert("请输入正确的金额！");
+			}
+		}
+	</script>
+
+</html>

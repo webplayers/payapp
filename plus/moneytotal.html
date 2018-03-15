@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<script type="text/javascript" src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	</head>
+
+	<body ontouchstart>
+		<header id="header" style="height: 60px">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">经营报表</div>
+		</header>
+		<div class="weui-btn-area" style="height: 30px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+
+		<div id="pullrefresh">
+			<div class="weui-tab">
+				<div class="weui-navbar">
+					<a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+						今日收款
+					</a>
+					<a class="weui-navbar__item" href="#tab2">
+						本月收款
+					</a>
+				</div>
+				<div class="weui-tab__bd">
+					<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+						<div class="weui-cells__title">今日收款</div>
+						<div class='demos-header'>
+							<h1 id="datamoney" class="demos-title"></h1>
+						</div>
+						<!--宫格菜单-->
+						<div class="weui-grids">
+							<a href="#" class="weui-grid js_grid">
+								<p style="color: #999999;" class="weui-grid__label">
+									交易笔数
+								</p>
+								<p id="datacount" class="weui-grid__label">
+								</p>
+							</a>
+							<a href="#" class="weui-grid js_grid">
+								<p style="color: #999999;" class="weui-grid__label">
+									交易人数
+								</p>
+								<p id="dataperson" class="weui-grid__label">
+								</p>
+							</a>
+							<a href="#" class="weui-grid js_grid">
+								<p style="color: #999999;" class="weui-grid__label">
+									人均消费
+								</p>
+								<p id="dataave" class="weui-grid__label">
+								</p>
+							</a>
+						</div>
+						<!--宫格菜单结束-->
+					</div>
+					<div id="tab2" class="weui-tab__bd-item">
+						<div class="weui-cells__title">本月收款</div>
+						<div class='demos-header'>
+							<h1 id="monthmoney" class="demos-title"></h1>
+						</div>
+						<!--宫格菜单-->
+						<div class="weui-grids">
+							<a href="#" class="weui-grid js_grid">
+								<p style="color: #999999;" class="weui-grid__label">
+									交易笔数
+								</p>
+								<p id="monthcount" class="weui-grid__label">
+								</p>
+							</a>
+							<a href="#" class="weui-grid js_grid">
+								<p style="color: #999999;" class="weui-grid__label">
+									交易人数
+								</p>
+								<p id="monthperson" class="weui-grid__label">
+								</p>
+							</a>
+							<a href="#" class="weui-grid js_grid">
+								<p style="color: #999999;" class="weui-grid__label">
+									人均消费
+								</p>
+								<p id="monthave" class="weui-grid__label">
+								</p>
+							</a>
+						</div>
+						<!--宫格菜单结束-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../app/js/jquery-weui.js"></script>
+		<script>
+			mui.plusReady(function() {
+				var storage = window.localStorage;
+                var shopname = storage["username"];
+				var monthoptions = {
+					url: 'http://pay.goliebao.com/app/public/index/index/monthnumsearch.html',
+					type: 'post',
+					dataType: 'text',
+					data: {
+						shopid: shopname,
+					},
+					success: function(data) {
+						var datas = eval('(' + data + ')');
+						$("#monthmoney").text("¥" + datas.datamoney + "元");
+						$("#monthcount").text(datas.datacount);
+						$("#monthperson").text(datas.dataperson);
+						$("#monthave").text((datas.datamoney / datas.dataperson).toFixed(2));
+					},
+					error: function() {
+						alert("数据接口错误");
+					}
+				};
+				$.ajax(monthoptions);
+				var dataoptions = {
+					url: 'http://pay.goliebao.com/app/public/index/index/datanumsearch.html',
+					type: 'post',
+					dataType: 'text',
+					data: {
+						shopid: shopname,
+					},
+					success: function(data) {
+						var datas = eval('(' + data + ')');
+						if(datas.datacount==-1){
+							return;
+						}
+						$("#datamoney").text("¥" + datas.datamoney + "元");
+						$("#datacount").text(datas.datacount);
+						$("#dataperson").text(datas.dataperson);
+						$("#dataave").text((datas.datamoney / datas.dataperson).toFixed(2));
+					},
+					error: function() {}
+				};
+				$.ajax(dataoptions);
+
+			});
+		</script>
+		</script>
+	</body>
+</html>

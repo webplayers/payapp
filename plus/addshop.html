@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<script type="text/javascript" src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	</head>
+
+	<body ontouchstart>
+		<header id="header" style="height: 60px">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">拓展商家</div>
+		</header>
+		<div class="weui-btn-area" style="height: 30px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+		<form action="http://pay.goliebao.com/app/public/index/index/qumessage" method="post" enctype="multipart/form-data" autocomplete="off" id="titletread">
+			<input type="hidden" class="input-text" id="tra_id" name="tra_id">
+			<input type="hidden" class="input-text" id="mct_no" name="mct_no">
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div style="width: auto;" class="weui-cell__hd"><label class="weui-label">商户名称：</label></div>
+					<div class="weui-cell__bd">
+						<input name="mct_name" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">招牌名称：</label></div>
+					<div class="weui-cell__bd">
+						<input name="brand_name" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">联系电话：</label></div>
+					<div class="weui-cell__bd">
+						<input name="tel" required class="weui-input" type="tel" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">营业时间：</label></div>
+					<div class="weui-cell__bd">
+						<input name="open_hours" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label for="name" class="weui-label">省市城市：</label></div>
+					<div class="weui-cell__bd">
+						<input name="cityid" required class="weui-input" id="city-picker" type="text" value="北京 北京市 东城区">
+					</div>
+				</div>
+
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">详细地址：</label></div>
+					<div class="weui-cell__bd">
+						<input name="address" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">行业类别：</label></div>
+					<div class="weui-cell__bd">
+						<input name="clsid" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">法人姓名：</label></div>
+					<div class="weui-cell__bd">
+						<input name="boss_name" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">身份证号：</label></div>
+					<div class="weui-cell__bd">
+						<input name="boss_id_no" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label for="date" class="weui-label" style="width: auto;">身份证生效时间：</label></div>
+					<div class="weui-cell__bd">
+						<input name="boss_sdate" required class="weui-input" id="date1" type="text" value="2017-01-01">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label for="date" class="weui-label" style="width: auto;">身份证过期时间：</label></div>
+					<div class="weui-cell__bd">
+						<input name="boss_edate" required class="weui-input" id="date2" type="text" value="2017-01-01">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">法人身份证正面：</label></div>
+					<div class="weui-cell__bd">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">法人身份证背面：</label></div>
+					<div class="weui-cell__bd">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">营业执照类型：</label></div>
+					<div class="weui-cell__bd">
+						<input name="bl_type" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label for="date" class="weui-label" style="width: auto;">营业执照生效时间：</label></div>
+					<div class="weui-cell__bd">
+						<input name="bl_sdate" required class="weui-input" id="date3" type="text" value="2017-01-01">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label for="date" class="weui-label" style="width: auto;">营业执照失效时间：</label></div>
+					<div class="weui-cell__bd">
+						<input name="bl_edate" required class="weui-input" id="date4" type="text" value="2017-01-01">
+					</div>
+				</div>
+
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">营业执照编号：</label></div>
+					<div class="weui-cell__bd">
+						<input name="bl_no" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">营业执照图片：</label></div>
+					<div class="weui-cell__bd">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">店铺招牌照片：</label></div>
+					<div class="weui-cell__bd">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">店铺内景照片：</label></div>
+					<div class="weui-cell__bd">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+						<input name="images[]" required class="weui-input" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">开户行名称：</label></div>
+					<div class="weui-cell__bd">
+						<input name="bank_name" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">银行户名：</label></div>
+					<div class="weui-cell__bd">
+						<input name="account_name" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">银行账号：</label></div>
+					<div class="weui-cell__bd">
+						<input name="account_no" required class="weui-input" type="number" pattern="[0-9]*" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">结算账户类型：</label></div>
+					<div class="weui-cell__bd">
+						<input name="account_type" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label" style="width: auto;">开户行行号：</label></div>
+					<div class="weui-cell__bd">
+						<input name="bank_no" required class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+			</div>
+			<div class="weui-btn-area">
+				<input class="weui-btn weui-btn_primary" type="submit" style="background-color: #ff9900"></input>
+			</div>
+		</form>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script src="../app/js/city-picker.js"></script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../app/js/jquery-weui.js"></script>
+		<script src="../app/js/Validform.js"></script>
+		<script>
+			var storage = window.localStorage;
+			var shopname = storage["username"];
+			var timestamp = (new Date()).valueOf();
+			$("#tra_id").val(shopname + timestamp);
+			$("#mct_no").val("823" + timestamp);
+			$("#city-picker").cityPicker({
+				title: "请选择地点"
+			});
+			$("#date1").calendar();
+			$("#date2").calendar();
+			$("#date3").calendar();
+			$("#date4").calendar();
+		</script>
+	</body>
+
+</html>

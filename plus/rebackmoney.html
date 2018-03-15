@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<script type="text/javascript" src="../js/common.js"></script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	</head>
+
+	<body ontouchstart>
+		<header id="header" style="height: 60px">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">退款明细</div>
+		</header>
+		<div class="weui-btn-area" style="height: 30px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+		<div style="margin-top: -20px;" id="pullrefresh" class="mui-content">
+			<div id="titletread">
+			</div>
+		</div>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script>
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						color: '#808080', //可选，默认“#2BD009” 下拉刷新控件颜色
+						height: '50px', //可选,默认50px.下拉刷新控件的高度,
+						range: '100px', //可选 默认100px,控件可下拉拖拽的范围
+						offset: '50px', //可选 默认0px,下拉刷新控件的起始位置
+						callback: pulldownRefresh
+					},
+					up: {
+						style: 'circle',
+						callback: pullupRefresh
+					}
+				}
+			});
+
+			function pullupRefresh() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPullup('true'); //参数为true代表没有更多数据了。
+					mui.toast("没有更多数据了");
+				}, 1500);
+			}
+
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPulldown();
+					mui.toast("刷新成功");
+					location.reload();
+				}, 1500);
+			}
+		</script>
+		<script>
+			var storage = window.localStorage;
+			var shopname = storage["username"];
+			var options = {
+				url: 'http://pay.goliebao.com/app/public/index/index/retrade.html',
+				type: 'post',
+				dataType: 'text',
+				data: {
+					shopname: shopname
+				},
+				success: function(data) {
+					var data = eval('(' + data + ')');
+					for(var i = 0; i < 20; i++) {
+						var div1 = '<div class="weui-form-preview">';
+						div1 += '<div class="weui-form-preview__hd">';
+						div1 += '<div class="weui-form-preview__item">';
+						div1 += '<label class="weui-form-preview__label">退款金额</label>';
+						div1 += '<em class="weui-form-preview__value">¥'
+						div1 += data[i].total_fee / 100;
+						div1 += '</em>';
+						div1 += '</div>';
+						div1 += '</div>';
+						div1 += '<div class="weui-form-preview__bd">';
+						div1 += '<div class="weui-form-preview__item">';
+						div1 += '<label class="weui-form-preview__label">退款状态</label>';
+						div1 += '<span class="weui-form-preview__value">';
+						div1 += "退款成功";
+						div1 += '</span>';
+						div1 += '</div>';
+						div1 += '<div class="weui-form-preview__item">';
+						div1 += '<label class="weui-form-preview__label">退款时间</label>';
+						div1 += '<span class="weui-form-preview__value">';
+						div1 += data[i].data;
+						div1 += '</span>';
+						div1 += '</div>';
+						div1 += '<div class="weui-form-preview__item">';
+						div1 += '<label class="weui-form-preview__label">退款单号</label>';
+						div1 += '<span class="weui-form-preview__value">';
+						div1 += data[i].transaction_id;
+						div1 += '</span>';
+						div1 += '</div>';
+						div1 += '</div>';
+						div1 += '<div class="weui-form-preview__ft">';
+						div1 += '<a class="weui-form-preview__btn" onclick="seeremoneydetail('
+						div1 += data[i].id;
+						div1 += ')" style="color:#808080">查看详情</a>';
+						div1 += '</div>';
+						div1 += '</div>';
+						$("#titletread").append(div1);
+					}
+				},
+				error: function() {
+					alert("网络错误");
+				}
+			};
+			$.ajax(options);
+		</script>
+		<script>
+			//交易详情页面
+			function seeremoneydetail(data) {
+				mui.init();
+				mui.openWindow({
+					url: 'repaymoneydetail.html',
+					id: 'repaymoneydetail.html',
+					extras: {
+						data: data
+					}
+				});
+			}
+		</script>
+		<script src="../app/js/jquery-weui.js"></script>
+		<script src="../app/js/home.js"></script>
+	</body>
+
+</html>

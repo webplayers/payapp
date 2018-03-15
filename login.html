@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="app/lib/weui.min.css">
+		<link rel="stylesheet" href="app/css/jquery-weui.css">
+		<link rel="stylesheet" href="app/css/demos.css">
+
+	</head>
+
+	<body ontouchstart>
+
+		<header class='demos-header' style="height: 200px;">
+			<h1 class="demos-title" style="margin-top: 25%;">智富圈</h1>
+		</header>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">账号</label></div>
+				<div class="weui-cell__bd">
+					<input id="username" class="weui-input" type="text" placeholder="请输入账号">
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells weui-cells_form">
+			<div class="weui-cell">
+				<div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+				<div class="weui-cell__bd">
+					<input id="password" class="weui-input" type="password" placeholder="请输入密码">
+				</div>
+			</div>
+		</div>
+		<div class="weui-btn-area">
+			<a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" style="background-color: #ff9900">登录</a>
+		</div>
+
+		<script src="app/lib/jquery-2.1.4.js"></script>
+		<script src="app/lib/fastclick.js"></script>
+		<script>
+			$(function() {
+				FastClick.attach(document.body);
+			});
+		</script>
+		<script src="app/js/jquery-weui.js"></script>
+
+		<script>
+			function setCookie(c_name, value, expiredays) {
+				var exdate = new Date()
+				exdate.setDate(exdate.getDate() + expiredays)
+				document.cookie = c_name + "=" + escape(value) +
+					((expiredays == null) ? "" : "; expires=" + exdate.toGMTString())
+			}
+
+			$("#showTooltips").click(function() {
+				var tel = $("#username").val();
+				var code = $('#password').val();
+				if(!tel) $.toptip('请输入账号');
+				else {
+					var options = {
+						url: 'http://pay.goliebao.com/app/public/index/index/index.html',
+						type: 'post',
+						dataType: 'text',
+						data: {
+							user: tel,
+							psw: code
+						},
+						success: function(data) {
+							if(data == tel) {
+								var storage = window.localStorage;
+								storage["username"] = data;
+								location.href = "home.html";
+							} else {
+								plus.nativeUI.alert("账号密码错误");
+							}
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							plus.nativeUI.alert("登录失败");
+							console.log(errorThrown);
+						}
+					};
+					$.ajax(options);
+				}
+			});
+		</script>
+	</body>
+
+</html>

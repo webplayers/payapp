@@ -1,0 +1,49 @@
+{
+  "index.html": {
+    "refer": [
+      "home.html",
+      "login.html"
+    ],
+    "resources": []
+  },
+  "login.html": {
+    "refer": [
+      "home.html"
+    ],
+    "resources": []
+  },
+  "home.html": {
+    "refer": [
+      "plus/account.html",
+      "login.html",
+      "plus/shopsearch.html",
+      "plus/qrcode.html",
+      "plus/pay.html",
+      "plus/shopmessage.html",
+      "plus/moneytotal.html",
+      "plus/rebackmoney.html",
+      "plus/addshop.html",
+      "plus/changepassword.html",
+      "plus/aboutme.html",
+      "plus/shopquan.html"
+    ],
+    "resources": []
+  },
+  "plus/rebackmoney.html": {
+    "refer": [
+      "plus/repaymoneydetail.html"
+    ],
+    "resources": []
+  },
+  "plus/account.html": {
+    "refer": [
+      "plus/moneydetail.html"
+    ],
+    "resources": []
+  },
+  "plus/pay.html": {
+    "refer": [
+      "plus/barcode_scan.html"
+    ]
+  }
+}

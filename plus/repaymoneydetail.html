@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>jQuery WeUI</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../app/lib/weui.min.css">
+		<link rel="stylesheet" href="../app/css/jquery-weui.css">
+		<link rel="stylesheet" href="../app/css/demos.css">
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<script type="text/javascript" src="../js/immersed.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+	</head>
+
+	<body ontouchstart>
+		<header style="	width: 100%;height: 60px;">
+			<div class="nvbt iback" onclick="back()" style="margin-top: 15px"></div>
+			<div class="nvtt" style="margin-top: 20px">退款详情</div>
+		</header>
+		<div class="weui-btn-area" style="height: 30px">
+			<p style="background-color: #ffffff">&nbsp;</p>
+		</div>
+		<div class="weui-form-preview">
+			<div class="weui-form-preview__hd">
+				<label class="weui-form-preview__label">退款金额</label>
+				<em id="money" class="weui-form-preview__value"></em>
+			</div>
+			<div class="weui-form-preview__bd">
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">附加信息</label>
+					<span id="addmessage" class="weui-form-preview__value">退款</span>
+				</div>
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">退款交易时间</label>
+					<span id="time" class="weui-form-preview__value"></span>
+				</div>
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">商户订单号</label>
+					<span id="transaction_id" class="weui-form-preview__value"></span>
+				</div>
+				<div class="weui-form-preview__item">
+					<label class="weui-form-preview__label">退款单号</label>
+					<span id="out_trade_no" class="weui-form-preview__value"></span>
+				</div>
+			</div>
+		</div>
+		</br>
+		<div class="weui-cells">
+			<div class="weui-cell weui-cell_access">
+				<div class="weui-cell__bd">
+					<a class="weui-cell__hd">常见问题</a>
+				</div>
+				<span class="weui-cell__ft"></span>
+			</div>			
+		</div>
+		<div class="weui-cells">
+			<div onclick="plus.device.dial('0755-26990800', false);" class="weui-cell weui-cell_access">
+				<div class="weui-cell__bd">
+					<a class="weui-cell__hd">联系我们</a>
+				</div>
+				<span class="weui-cell__ft">0755-26990800</span>
+			</div>
+			<div onclick="alert('上报成功\n稍后客服将联系您进行处理！')" class="weui-cell weui-cell_access">
+				<div class="weui-cell__bd">
+					<a class="weui-cell__hd">订单问题上报</a>
+				</div>
+				<span class="weui-cell__ft"></span>
+			</div>
+		</div>
+		<script src="../app/lib/jquery-2.1.4.js"></script>
+		<script src="../app/lib/fastclick.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script>
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var moneyid = self.data;
+				var options = {
+					url: 'http://pay.goliebao.com/app/public/index/index/remoneyid.html',
+					type: 'post',
+					dataType: 'text',
+					data: {
+						id: moneyid
+					},
+					success: function(data) {
+						var datas = eval('(' + data + ')');
+						$("#money").text("¥" + datas[0].total_fee / 100 + "元");
+						$("#time").text(datas[0].data);
+						$("#transaction_id").text(datas[0].out_trade_no);
+						$("#out_trade_no").text(datas[0].refund_id);
+					},
+					error: function() {
+						alert("网络失败");
+					}
+				};
+				$.ajax(options);
+			});
+		</script>
+		<script src="../app/js/jquery-weui.js"></script>
+	</body>
+
+</html>
